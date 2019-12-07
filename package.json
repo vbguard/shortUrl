@@ -1,0 +1,24 @@
+{
+  "name": "shortUrl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:vbguard/shortUrl.git",
+  "author": "Viktor Bulvarenko <viktor.bulvarenko@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.14",
+    "morgan": "^1.9.1",
+    "shortid": "^2.2.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
