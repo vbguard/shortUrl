@@ -5,7 +5,7 @@ module.exports = (req, res) => {
   if (url) {
     Urls.findOne({ shortUrl: url })
       .then(result => {
-        res.redirect(result.mainUrl)
+       return res.redirect(result.mainUrl)
       })
       .catch(err => {
         console.log("err :", err)

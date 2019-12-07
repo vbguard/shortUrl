@@ -12,7 +12,6 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 //
 const logger = require("morgan")
-const port = process.env.PORT || 3000
 require("dotenv").config()
 
 const routes = require("./routes/routes")
@@ -27,8 +26,9 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => {
+  .then(data => {
     console.log("dB connected...")
+    return data
   })
   .catch(err => {
     console.log("DB conneting error: ", err)
@@ -52,7 +52,7 @@ app.set("view engine", "ejs")
 
 app.use(express.static("static"))
 
-app.get("/", (req, res) => {
+app.get("/app", (req, res) => {
   Urls.find({})
     .then(result => {
       const normalized = result.map(item => ({
@@ -60,9 +60,9 @@ app.get("/", (req, res) => {
         url: item.url
       }))
 
-      res.render("home", {
+      return res.render("home", {
         title: "Short Url", //page title
-        action: "/api/url/create", //post action for the form
+        action: "/app/api/url/create", //post action for the form
         fields: [
           { name: "url", type: "url", property: "required" } //first field for the form
         ],
@@ -72,15 +72,13 @@ app.get("/", (req, res) => {
     .catch(err => res.status(400).json(err))
 })
 
-app.get("/:url", mainController)
+app.get("/app/:url", mainController)
 
-app.get("/result", (req, res) => {
+app.get("/app/result", (req, res) => {
   res.render("result")
 })
-app.use("/api", routes)
+app.use("/app/api", routes)
 
 app.use((req, res) => {
   res.render("404")
 })
-
-app.listen(port, () => console.log(`Server running on port ${port} 🔥`))
